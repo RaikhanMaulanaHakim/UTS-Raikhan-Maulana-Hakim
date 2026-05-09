@@ -1,0 +1,64 @@
+def caesar_cipher(text, shift, mode):
+    result = ""
+
+    for char in text:
+        if char.isalpha():  # cek apakah huruf
+            # jika mode dekripsi, shift dibuat negatif
+            if mode == 2:
+                shift = -abs(shift)
+
+            if char.isupper():
+                result += chr((ord(char) + shift - 65) % 26 + 65)
+            else:
+                result += chr((ord(char) + shift - 97) % 26 + 97)
+        else:
+            result += char  # jika bukan huruf tetap ditampilkan
+
+    return result
+
+# PROGRAM UTAMA
+while True:
+    print("==========================")
+    print("  Program Caesar Cipher   ")
+    print("==========================")
+    print("1. Enkripsi")
+    print("2. Dekripsi")
+    print("3. Keluar Program")
+
+    pilihan = input("Pilih menu (1/2/3): ")
+
+    # validasi menu
+    if pilihan not in ["1", "2", "3"]:
+        print("Error: Menu tidak valid!")
+        continue
+
+    pilihan = int(pilihan)
+
+    # keluar program
+    if pilihan == 3:
+        print("Program selesai. Terima kasih!")
+        break
+
+    # input pesan
+    text = input("Masukkan pesan/text: ")
+
+    # validasi pesan kosong
+    if text.strip() == "":
+        print("Error: Pesan tidak boleh kosong!")
+        continue
+
+    # input shift
+    try:
+        shift = int(input("Masukkan nilai shift: "))
+    except ValueError:
+        print("Error: Shift harus berupa angka!")
+        continue
+
+    # proses
+    hasil = caesar_cipher(text, shift, pilihan)
+
+    # output
+    if pilihan == 1:
+        print("Hasil Enkripsi:", hasil)
+    else:
+        print("Hasil Dekripsi:", hasil)
